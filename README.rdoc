@@ -1,2 +1,1 @@
 = musicTheory in Ruby
-...enough said.
