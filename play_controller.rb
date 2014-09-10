@@ -2,10 +2,10 @@ require_relative 'frequency_finder'
 require_relative 'sample'
 require_relative 'wavefile'
 
-cool = FrequencyFinder.new(880.0)
-play = cool.modes
+new_frequency = FrequencyFinder.new(880.0)
+mode_frequencies = new_frequency.modes
 
-a = Sample.new(play)
+a = Sample.create(mode_frequencies)
 
-Wav.write(a.get_samples)
+Wav.write(a)
 Wav.play
