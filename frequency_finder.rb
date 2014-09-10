@@ -52,7 +52,7 @@ class FrequencyFinder
 	end
 
 	def modes(current_mode = MAJOR_SCALE_PATTERN)
-		all_notes = []
+		mode_notes = []
 		current_start = 0
 		chromatic_frequencies = chromatic(24)
 
@@ -64,11 +64,25 @@ class FrequencyFinder
 				mode_frequencies << chromatic_frequencies[current]
 			end
 
-			all_notes += mode_frequencies
+			mode_notes += mode_frequencies
 			current_start += current_mode.first
 
 			current_mode.rotate!
 		end
-		all_notes
+		mode_notes
+	end
+
+	def arpeggio(current_mode = MAJOR_SCALE_PATTERN)
+		current_mode *= 2
+		current = 0
+		chromatic_frequencies = chromatic(24)
+
+		arpeggio = [chromatic_frequencies.first]
+
+		current_mode.each_slice(2) do |group|
+			current += group.inject(:+)
+			arpeggio << chromatic_frequencies[current]
+		end
+		arpeggio
 	end
 end
